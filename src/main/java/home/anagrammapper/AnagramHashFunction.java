@@ -7,7 +7,7 @@ public class AnagramHashFunction {
     public static String hashString(String text) {
         if (text == null) return "";
 
-        char charArray[] = text.toLowerCase().toCharArray();
+        char[] charArray = text.toLowerCase().replaceAll("[\\W_-]", "").toCharArray();
         Arrays.sort(charArray);
         return new String(charArray);
     }

@@ -5,16 +5,6 @@ import static org.junit.Assert.assertEquals;
 
 public class AnagramHashFunctionTest {
     @Test
-    public void shouldSortLettersAlphabetically()
-    {
-        var input = "abc";
-
-        var anagramHash = AnagramHashFunction.hashString(input);
-
-        assertEquals("Should sort letters alphabetically", "abc", anagramHash);
-    }
-
-    @Test
     public void calculateHashCaseInsensitive()
     {
         var input1 = "ghijklmo";
@@ -36,6 +26,28 @@ public class AnagramHashFunctionTest {
         var anagramHash2 = AnagramHashFunction.hashString(input2);
 
         assertEquals("Should calculate same hash for the same set of letters", anagramHash1, anagramHash2);
+    }
+
+    @Test
+    public void calculateHashOfWordCharactersOnly()
+    {
+        var input1 = "ab c";
+        var input2 = "c-b_a!";
+
+        var anagramHash1 = AnagramHashFunction.hashString(input1);
+        var anagramHash2 = AnagramHashFunction.hashString(input2);
+
+        assertEquals("Should calculate hash of word characters only", anagramHash1, anagramHash2);
+    }
+
+    @Test
+    public void shouldSortLettersAlphabetically()
+    {
+        var input = "abc";
+
+        var anagramHash = AnagramHashFunction.hashString(input);
+
+        assertEquals("Should sort letters alphabetically", "abc", anagramHash);
     }
 
     @Test
