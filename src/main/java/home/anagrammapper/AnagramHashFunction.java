@@ -5,7 +5,9 @@ import java.util.Arrays;
 public class AnagramHashFunction {
 
     public static String hashString(String text) {
-        char charArray[] = text.toCharArray();
+        if (text == null) return "";
+
+        char charArray[] = text.toLowerCase().toCharArray();
         Arrays.sort(charArray);
         return new String(charArray);
     }
