@@ -29,16 +29,31 @@ public class AnagramHashFunctionTest {
     }
 
     @Test
-    public void calculateHashOfWordCharactersOnly()
+    public void calculateHashSpaceIgnored()
     {
-        var input1 = "ab c";
-        var input2 = "c-b_a!";
+        var input1 = "ab  c";
+        var input2 = "c ba";
 
         var anagramHash1 = AnagramHashFunction.hashString(input1);
         var anagramHash2 = AnagramHashFunction.hashString(input2);
 
-        assertEquals("Should calculate hash of word characters only", anagramHash1, anagramHash2);
+        assertEquals("Should ignore spaces when calculated hash", anagramHash1, anagramHash2);
     }
+
+    /*
+    TODO: suggest requirement
+
+    @Test
+    public void calculateHashOfWordCharactersOnly()
+    {
+        var input1 = "ab c";
+        var input2 = "c-b_a";
+
+        var anagramHash1 = AnagramHashFunction.hashString(input1);
+        var anagramHash2 = AnagramHashFunction.hashString(input2);
+
+        assertEquals("Should calculate hash Of word characters only", anagramHash1, anagramHash2);
+    }*/
 
     @Test
     public void shouldSortLettersAlphabetically()

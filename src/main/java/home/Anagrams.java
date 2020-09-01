@@ -9,8 +9,9 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class App
+public class Anagrams
 {
     public static void main( String[] args )
     {
@@ -18,20 +19,37 @@ public class App
         System.out.println( "|        Anagram Mapper         |" );
         System.out.println( "---------------------------------" );
 
+        if (args.length != 1) {
+            System.out.printf("%nUsage: Provide a path to a text file with words.%n%n");
+            System.exit(1);
+        }
+
         try {
 
             List<String> lines = Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8);
             System.out.printf("%nFile %s read successfully.%n%n", args[0]);
 
-            List<Set<String>> result = AnagramMapper.process(new HashSet<>(lines));
-            result.stream().filter(v -> v.size() > 1).forEach(l ->
-                    System.out.println(l.toString().replaceAll("[\\[|\\],]", ""))
+            System.out.println(
+                    handleOutput(AnagramMapper.process(new HashSet<>(lines)))
             );
+
+        } catch (java.nio.file.NoSuchFileException e) {
+
+            System.out.printf("%nFile does not exist %s.%n", args[0]);
 
         } catch (IOException e) {
 
             System.out.printf("%nCannot read file %s.%n", args[0]);
             e.printStackTrace();
+
         }
+    }
+
+    public static String handleOutput(List<Set<String>> result)
+    {
+        return result.stream()
+                .filter(v -> v.size() > 1)
+                .map(l -> String.format("%n %s", l.toString().replaceAll("[\\[|\\],]", "")))
+                .collect(Collectors.joining());
     }
 }
