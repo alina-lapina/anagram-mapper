@@ -30,7 +30,7 @@ public class Anagrams
             System.out.printf("%nFile %s read successfully.%n%n", args[0]);
 
             System.out.println(
-                    handleOutput(AnagramMapper.process(new HashSet<>()))
+                    handleOutput(AnagramMapper.process(new HashSet<>(lines)))
             );
 
         } catch (java.nio.file.NoSuchFileException e) {
