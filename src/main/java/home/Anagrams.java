@@ -30,7 +30,7 @@ public class Anagrams
             System.out.printf("%nFile %s read successfully.%n%n", args[0]);
 
             System.out.println(
-                    handleOutput(AnagramMapper.process(new HashSet<>(lines)))
+                    handleOutput(AnagramMapper.process(new HashSet<>()))
             );
 
         } catch (java.nio.file.NoSuchFileException e) {
@@ -47,9 +47,12 @@ public class Anagrams
 
     public static String handleOutput(List<Set<String>> result)
     {
-        return result.stream()
-                .filter(v -> v.size() > 1)
-                .map(l -> String.format("%n %s", l.toString().replaceAll("[\\[|\\],]", "")))
+        List<Set<String>> filtered = result.stream()
+                .filter(v -> v.size() > 1).collect(Collectors.toList());
+
+        return filtered.isEmpty()
+                ? "No anagrams in the list."
+                : filtered.stream().map(l -> String.format("%n %s", l.toString().replaceAll("[\\[|\\],]", "")))
                 .collect(Collectors.joining());
     }
 }
